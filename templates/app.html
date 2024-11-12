@@ -6,18 +6,29 @@
     <title>Upload and Remove Background</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/style.css" rel="stylesheet">
+
+    <style>
+
+    </style>
 </head>
 <body>
+    <!-- Spinner overlay -->
+    <div class="spinner-overlay" id="spinnerOverlay">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand title" href="">Background Magic</a>
-            <span style="float: right;" >Beta</span>
+            <span style="float: right;">Beta</span>
         </div>
     </nav>
 
     <div class="container mt-5 pt-5">
-        <h3 class="text-center mb-4">100% Free and Full Quality Background Images Remover and More!</h3>
-        <form id="uploadForm" action="{{ url_for('upload_and_display') }}" method="post" enctype="multipart/form-data" class="mt-4 mx-auto" style="max-width: 420px;">
+        <h3 class="text-center mb-4 mt-1">100% Free and Full Quality Background Images Remover and More!</h3>
+        <form id="uploadForm" action="{{ url_for('upload_and_display') }}" method="post" enctype="multipart/form-data" class="mt-5 mx-auto " style="max-width: 420px;">
             <div class="form-group">
                 <div class="custom-file">
                     <input type="file" name="image" accept="image/*" required class="custom-file-input" id="image">
@@ -25,14 +36,12 @@
                 </div>
             </div>
             <div class="centerdiv">
-                <button type="submit" name="action" value="remove_background" class="btn btn-success mt-4 rounded-pill py-3 shadow-lg btn-remove-bg">
+                <button type="submit" name="action" value="remove_background" class="btn btn-success mt-4 rounded-pill py-3 shadow-lg">
                     Remove Background
-                    <!-- <span class="spinner-border spinner-border-sm ml-2 spinner" role="status" aria-hidden="true"></span> -->
                 </button>
-                
             </div>
             <div class="centerdiv">
-                <span >Or Set Color As Background:</span>
+                <span>Or Set Color As Background:</span>
                 <div class="row">
                     <div class="col-6">
                         <input type="color" id="color" name="background_color" value="#ffffff" class="form-control mt-2">
@@ -40,16 +49,13 @@
                     <div class="col-6">
                         <button type="submit" name="action" value="color_background" class="btn btn-primary rounded-pill py-2 shadow-lg mt-2">
                             Apply Color
-
                         </button>
                     </div>
                 </div>
             </div>
             <div class="centerdiv">
-                <span >Or Set Image As Background:</span>
-
+                <span>Or Set Image As Background:</span>
                 <div class="row">
-
                     <div class="col-6">
                         <div class="custom-file mt-2">
                             <input type="file" name="background_image" accept="image/*" class="custom-file-input" id="backgroundImage">
@@ -59,7 +65,6 @@
                     <div class="col-6">
                         <button type="submit" name="action" value="image_background" class="btn btn-info rounded-pill py-2 shadow-lg mt-2">
                             Apply Background
-                            
                         </button>
                     </div>
                 </div>
@@ -74,11 +79,11 @@
                     <img src="{{ original_image }}" alt="Original Image" class="img-fluid rounded">
                 </div>
                 <div class="col-md-6">
-                    <h5 class="text-center">New Image </h5>
+                    <h5 class="text-center">New Image</h5>
                     <img src="{{ output_image }}" alt="Background Removed Image" class="img-fluid rounded">
                 </div>
             </div>
-            <div class="text-center mt-4 " >
+            <div class="text-center mt-4">
                 <a href="{{ output_image }}" download>
                     <button class="download-btn">Download New Image</button>
                 </a>
@@ -86,22 +91,37 @@
         </div>
         {% endif %}
     </div>
-
-
-    </div>
+<br><br>
+    <footer class="bg-body-tertiary text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2024 Copyright:
+            <a class="text-body" href="https://ochebbi216.github.io/portfolio/">Omar Chebbi</a>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
-        document.getElementById('uploadForm').onsubmit = function() {
-            // Show the spinner and disable the button to prevent multiple uploads
-            document.querySelector('.spinner').style.display = 'inline-block';
-            document.querySelector('button[type="submit"]').disabled = true;
+        // Show spinner on page load
+        window.onload = function() {
+            document.getElementById('spinnerOverlay').style.display = 'flex';
         };
-        // Update label for file input
+    
+        // Hide spinner once the page is fully loaded
+        window.addEventListener('load', function() {
+            document.getElementById('spinnerOverlay').style.display = 'none';
+        });
+    
+        // Show spinner overlay when the form is submitted
+        document.getElementById('uploadForm').onsubmit = function() {
+            document.getElementById('spinnerOverlay').style.display = 'flex';
+        };
+    
+        // Update file input label with selected file name
         $('.custom-file-input').on('change', function() {
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
     </script>
+    
 </body>
 </html>
