@@ -1,3 +1,4 @@
 static/outputs/
 static/uploads/
 __pycache__/
+secret.txt

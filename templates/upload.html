@@ -26,7 +26,9 @@
             <div class="centerdiv">
                 <button type="submit" name="action" value="remove_background" class="btn btn-success mt-4 rounded-pill py-3 shadow-lg btn-remove-bg">
                     Remove Background
+                    <!-- <span class="spinner-border spinner-border-sm ml-2 spinner" role="status" aria-hidden="true"></span> -->
                 </button>
+                
             </div>
             <div class="centerdiv">
                 <span >Set Color As Background:</span>
@@ -37,6 +39,7 @@
                     <div class="col-6">
                         <button type="submit" name="action" value="color_background" class="btn btn-primary rounded-pill py-2 shadow-lg mt-2">
                             Apply Color
+
                         </button>
                     </div>
                 </div>
@@ -55,6 +58,7 @@
                     <div class="col-6">
                         <button type="submit" name="action" value="image_background" class="btn btn-info rounded-pill py-2 shadow-lg mt-2">
                             Apply Background
+                            
                         </button>
                     </div>
                 </div>
@@ -87,6 +91,11 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
+        document.getElementById('uploadForm').onsubmit = function() {
+            // Show the spinner and disable the button to prevent multiple uploads
+            document.querySelector('.spinner').style.display = 'inline-block';
+            document.querySelector('button[type="submit"]').disabled = true;
+        };
         // Update label for file input
         $('.custom-file-input').on('change', function() {
             let fileName = $(this).val().split('\\').pop();
