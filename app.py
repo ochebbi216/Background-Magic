@@ -61,9 +61,9 @@ def upload_and_display():
         original_image_url = url_for('static', filename=f'uploads/{original_filename}')
         output_image_url = url_for('static', filename=f'outputs/{os.path.basename(output_img_path)}')
 
-        return render_template('upload.html', original_image=original_image_url, output_image=output_image_url)
+        return render_template('app.html', original_image=original_image_url, output_image=output_image_url)
 
-    return render_template('upload.html')
+    return render_template('app.html')
 
 if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0', port=5000)
